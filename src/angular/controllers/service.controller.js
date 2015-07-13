@@ -60,5 +60,5 @@ controllers.controller('ServiceCtrl', ['$scope', '$routeParams', '$location', 'S
         return (n)
     });
     $scope.service.properties = propList;
-
+    console.log($scope.service.properties);
 }]);
