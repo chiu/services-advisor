@@ -66,7 +66,10 @@ controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'Service
                                
   }
 
-  $rootScope.filterSelection = []
+  $rootScope.filterSelection = {
+    "partners" : [],
+    "categories" : []
+  };
 
   // calls the ServiceList function get which takes a call back function 
   // in this case we are collecting Organizations
@@ -81,29 +84,29 @@ controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'Service
         selection: 'all'
     };
 
-  // toggle selection for a given organization by name
-  $scope.toggleSelection = function toggleSelection(organization) {
+  // toggle selection for a given partner by name
+  $scope.toggleSelection = function toggleSelection(partner) {
     
-    // stores the index of the organization currently being click
-    var idx = $rootScope.filterSelection.indexOf(organization);
+    // stores the index of the partner currently being click
+    var idx = $rootScope.filterSelection["partners"].indexOf(partner);
 
-    // is currently selected - splice that organization from selected array
+    // is currently selected - splice that partner from selected array
     if (idx > -1) {
-      $rootScope.filterSelection.splice(idx, 1);
+      $rootScope.filterSelection["partners"].splice(idx, 1);
     }
-    // is newly selected - push organization into the selection array
+    // is newly selected - push partner into the selection array
     else {
-      $rootScope.filterSelection.push(organization);
+      $rootScope.filterSelection["partners"].push(partner);
     }
 
-    if ($rootScope.filterSelection.length == 0){
+    if ($rootScope.filterSelection["partners"].length == 0){
       Search.clearPartners();
       Search.selectReferrals($scope.referral.selection);
     } else{
       //reapply the referrals filters
       Search.clearPartners();
       Search.selectReferrals($scope.referral.selection);
-      Search.selectPartners($rootScope.filterSelection);
+      Search.selectPartners($rootScope.filterSelection["partners"]);
     }
   };
 

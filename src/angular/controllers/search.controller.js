@@ -51,8 +51,15 @@ controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScop
         });
     };
 
+    $rootScope.$on('CATEGORY_CHANGED', function(event){
+        Search.clearCategory();
+        var category = $rootScope.filterSelection["categories"][0];
+        Search.selectCategory(category)
+    });
+
     // Had to put renderView() in a function callback otherwise Watch won't make changes 
-    $rootScope.$on('FILTER_CHANGED',function(){
+    $rootScope.$on('FILTER_CHANGED',function(event){
+
         renderView(Search.currResults());
     });
 

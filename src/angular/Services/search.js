@@ -60,7 +60,7 @@ services.factory('Search', ['ServicesList', '$rootScope', function (ServicesList
         return function () {
             clearAll();
             var result = fn.apply(this, arguments);
-            $rootScope.$emit('FILTER_CHANGED');
+            $rootScope.$emit('FILTER_CHANGED', arguments);
             return result;
         };
     };
@@ -68,12 +68,21 @@ services.factory('Search', ['ServicesList', '$rootScope', function (ServicesList
     var withoutClearAndEmit = function(fn) {
         return function () {
             var results = fn.apply(this, arguments);
-            $rootScope.$emit('FILTER_CHANGED');
+            $rootScope.$emit('FILTER_CHANGED', arguments);
             return results;
         };
     };
 
     return {
+        clearCategory: function(){
+            $rootScope.$emit('FILTER_CHANGED');
+            categoryDimension.filterAll();
+        },
+        selectCategoryNoClear: withoutClearAndEmit(function(category) {    
+            categoryDimension.filter(function(service) {
+                return service == category;
+            })
+        }),
         selectCategory: withClearAndEmit(function (category) {
             categoryDimension.filter(function(service) {
                 return service == category;
@@ -81,7 +90,7 @@ services.factory('Search', ['ServicesList', '$rootScope', function (ServicesList
         }),
         selectId: withClearAndEmit(function (id) {
             idDimension.filter(function(serviceId) {
-                return serviceId == id
+                return serviceId == id;
             });
         }),
         selectPartner: withClearAndEmit(function(partner) {

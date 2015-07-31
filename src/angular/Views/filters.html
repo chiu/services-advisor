@@ -45,7 +45,7 @@
                 {{organization1}}
                 <div class="pull-right">
                   <img class="organization-logo" ng-src="{{partnerLogoUrl[organization1]}}" onError="this.onerror=null;this.style.display='none';"/>
-                  <input ng-checked="filterSelection.indexOf(organization1) > -1" ng-click="toggleSelection(organization1)" type="checkbox" value="">
+                  <input ng-checked="filterSelection['partners'].indexOf(organization1) > -1" ng-click="toggleSelection(organization1)" type="checkbox" value="">
                 </div>
               </label>  
             </div>
@@ -56,7 +56,7 @@
                 {{organization2}}
                 <div class="pull-right">
                    <img class="organization-logo" ng-src="{{partnerLogoUrl[organization2]}}" onError="this.onerror=null;this.style.display='none';"/>
-                  <input ng-checked="filterSelection.indexOf(organization2) > -1" ng-click="toggleSelection(organization2)" type="checkbox" value=""> 
+                  <input ng-checked="filterSelection['partners'].indexOf(organization2) > -1" ng-click="toggleSelection(organization2)" type="checkbox" value=""> 
                 </div>
               </label>  
             </div>

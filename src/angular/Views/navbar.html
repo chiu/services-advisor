@@ -10,7 +10,10 @@
             <div class="arrow-right pull-left"></div>
           </div>
           <div ng-controller="FilterCtrl" id="activeFilters" class="col-xs-12 col-md-9">
-              <div ng-repeat="filter in filterSelection">
+              <div ng-repeat="filter in filterSelection['partners']">
+                <button type="button" class="btn label filter-pill pull-left" ng-click="toggleSelection(filter)">{{ filter }}</button>
+              </div>
+              <div ng-repeat="filter in filterSelection['categories']">
                 <button type="button" class="btn label filter-pill pull-left" ng-click="toggleSelection(filter)">{{ filter }}</button>
               </div>
           </div>

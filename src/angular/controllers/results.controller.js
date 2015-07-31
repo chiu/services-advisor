@@ -3,7 +3,7 @@ var controllers = angular.module('controllers');
 /**
  * For the results view
  */
-controllers.controller('ResultsCtrl', ['$scope', '$location', '$translate', 'Search', 'ServicesList', function ($scope, $location, $translate, Search, ServicesList) {
+controllers.controller('ResultsCtrl', ['$rootScope', '$scope', '$location', '$translate', 'Search', 'ServicesList', function ($rootScope, $scope, $location, $translate, Search, ServicesList) {
 
     // Filtered object based on the categories/regions in the query string
     var getFilteredResults = function ($location) {
@@ -14,7 +14,9 @@ controllers.controller('ResultsCtrl', ['$scope', '$location', '$translate', 'Sea
         }
 
         if (filters.category !== undefined) {
-            Search.selectCategory(filters.category)
+            $rootScope.filterSelection["categories"] = [filters.category];
+            $rootScope.$emit('CATEGORY_CHANGED');
+            // Search.selectCategory(filters.category);
         }
 
         if (filters.regionLayerId !== undefined) {
