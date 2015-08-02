@@ -35,6 +35,8 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "REFERRAL_METHOD": "Referral Method",
     "ACTIVITY_DETAIL": "Activity Detail",
     "SHOW_DETAILS": "Show details",
+    "SERVICES_ADVISOR": "Services Advisor",
+    "POWERED_BY": "Powered by PeaceGeeks",
     "Ajlun Governorate": "Ajlun Governorate",
     "Al Aqabah Governorate": "Al Aqabah Governorate",
     "Al Balqa Governorate": "Al Balqa Governorate",
@@ -46,7 +48,9 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "Irbid Governorate": "Irbid Governorate",
     "Jarash Governorate": "Jarash Governorate",
     "Ma'an Governorate": "Ma'an Governorate",
-    "Madaba Governorate": "Madaba Governorate"
+    "Madaba Governorate": "Madaba Governorate",
+    'ALL': "All",
+    'REFERRAL_NOT_REQUIRED': "Referral Not Required"
   });
 
   $translateProvider.translations('AR', {
@@ -83,6 +87,8 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "REFERRAL_METHOD": "الإحالة أسلوب",
     "ACTIVITY_DETAIL": "النشاط تفاصيل",
     "SHOW_DETAILS": "التفاصيل عرض",
+    "SERVICES_ADVISOR": "مستشار الخدمات",
+    "POWERED_BY": "مدعوم من PeaceGeeks",
     "Ajlun Governorate": "عجلون محافظة",
     "Al Aqabah Governorate": "العقبة محافظة",
     "Al Balqa Governorate": "البلقاء محافظةة",
@@ -94,6 +100,8 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "Irbid Governorate": "اربد محافظة",
     "Jarash Governorate": "جرش محافظة",
     "Ma'an Governorate": "معان محافظة",
-    "Madaba Governorate": "مادبا محافظةا"
+    "Madaba Governorate": "مادبا محافظةا",
+    'ALL': "كل",
+    'REFERRAL_NOT_REQUIRED': "إحالة غير مطلوب"
   });
 }]);

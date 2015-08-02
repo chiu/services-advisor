@@ -67,21 +67,19 @@ controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'Service
   }
 
   $rootScope.filterSelection = []
-  $rootScope.referrals = true;
- 
+
   // calls the ServiceList function get which takes a call back function 
   // in this case we are collecting Organizations
   ServicesList.get(collectOrganizations);
 
   // selected organizations
-  $scope.toggleReferrals = function(element) {
-    if (!$rootScope.referrals) {
-      $rootScope.referrals = true;
-    } else {
-      $rootScope.referrals = false
-    }
-    Search.selectReferrals($rootScope.referrals);
+  $scope.toggleReferral = function() {
+    Search.selectReferrals($scope.referral.selection);
   };
+
+    $scope.referral = {
+        selection: 'all'
+    };
 
   // toggle selection for a given organization by name
   $scope.toggleSelection = function toggleSelection(organization) {
@@ -100,11 +98,11 @@ controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'Service
 
     if ($rootScope.filterSelection.length == 0){
       Search.clearPartners();
-      Search.selectReferrals($rootScope.referrals);
+      Search.selectReferrals($scope.referral.selection);
     } else{
       //reapply the referrals filters
-      Search.clearPartners()
-      Search.selectReferrals($rootScope.referrals);
+      Search.clearPartners();
+      Search.selectReferrals($scope.referral.selection);
       Search.selectPartners($rootScope.filterSelection);
     }
   };
