@@ -585,6 +585,7 @@ ul.icons li [class*=" icon-"] {
 .icon-ocha-item-vaccine:before             { content: "\f407"; }
 .icon-ocha-item-plasticsheeting:before             { content: "\f411"; }
 .icon-ocha-item-reliefgood:before             { content: "\f412"; }
+.icon-ocha-item-nfi:before             { content: "\f412"; }
 .icon-ocha-item-stove:before             { content: "\f413"; }
 .icon-ocha-item-tarpaulin:before             { content: "\f414"; }
 .icon-ocha-item-tent:before             { content: "\f415"; }

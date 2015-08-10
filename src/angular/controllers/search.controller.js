@@ -4,7 +4,6 @@ var controllers = angular.module('controllers');
  * For the category/region search view
  */
 controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScope', 'ServicesList', 'Search', '_', function ($scope, $http, $location, $rootScope, ServicesList, Search, _) {
-
     var renderView = function(services) {
         
         // Here we're going to extract the list of categories and display them in a simple template
@@ -79,5 +78,24 @@ controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScop
             if (c >= 65 && c <= 90) return s.toLowerCase();
             return s;
         });
+    }
+
+    /* Adding a function to check which glyph icon to use
+        
+        This funtion checks the cateogry name, and returns 
+        a string which corresponds to the class name of the 
+        desired `glyph-icon` in the `font-humanitiarian.css` file
+            
+    */
+    $scope.findGlyphIcon = function(categoryName){
+        console.log(categoryName);
+        switch (categoryName) {            
+            case 'NFI':
+                return 'icon-ocha-item-reliefgood';
+                break;
+            
+            default:                
+                return 'icon-ocha-sector-' + categoryName.toLowerCase();
+        }        
     }
 }]);

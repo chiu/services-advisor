@@ -6,6 +6,7 @@
   <h3>{{'CATEGORY' | translate}}</h3>
   <div class="list-group">
     <div ng-init="categoryId = 'category-' + $index" id="{{categoryId}}" ng-repeat="category in categories">
+
       <a class="list-group-item category" ng-click="toggleCategory(categoryId)">
           <span class="glyphicon glyphicon-chevron-down"></span>
           {{category.name}} 
@@ -13,7 +14,7 @@
       </a>
       <div id="{{category.name}}Activities" class="activities hidden">
         <a ng-repeat="activity in category.activities" ng-href="#/results?category={{activity.name}}" ng-class="'list-group-item activityname-filter-value-' + toCssClass(activity.name)">
-          <span class="glyph"></span>{{activity.name}}
+          <span class="{{ findGlyphIcon(category.name) }}"></span>{{activity.name}}
           <span class="badge">{{activity.count}}</span>
         </a>
       </div>
