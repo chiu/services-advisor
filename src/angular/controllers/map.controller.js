@@ -1,19 +1,6 @@
 var controllers = angular.module('controllers');
 
-controllers.controller('MapCtrl', ['$scope', '$rootScope', '$location', '$translate', 'Search', function ($scope, $rootScope, $location, $translate, Search) {
-    var mapCtrl = this;
-
-    mapCtrl.onRegionClick = function(event) {
-        var layerId = polygonLayer.getLayerId(event.target);
-
-        event.target.setStyle({
-            opacity: 0.7
-        });
-
-        $location.path("/results").search({regionLayerId: layerId});
-        $scope.$apply();
-    };
-
+controllers.controller('MapCtrl', ['$scope', '$rootScope', '$location', '$translate', 'Search','_', function ($scope, $rootScope, $location, $translate, Search, _) {
     // Mapbox doesn't need its own var - it automatically attaches to Leaflet's L.
     require('mapbox.js');
     // Use Awesome Markers lib to produce font-icon map markers
@@ -80,14 +67,6 @@ controllers.controller('MapCtrl', ['$scope', '$rootScope', '$location', '$transl
                     });
                 //}
             }, this);
-
-            L.DomEvent.addListener(f, 'click', mapCtrl.onRegionClick);
-
-            //var key = this._getFeatureId(f);
-            //if (!this._filters[key]) {
-            //    this._numItems++;
-            //    this._filters[key] = this._addItem(f);
-            //}
         });
     });
 
@@ -117,6 +96,8 @@ controllers.controller('MapCtrl', ['$scope', '$rootScope', '$location', '$transl
             extraClasses: category
         });
     }
+
+    // add map icons
 
 
     var onChange = function(event) {
@@ -167,4 +148,24 @@ controllers.controller('MapCtrl', ['$scope', '$rootScope', '$location', '$transl
     };
 
     $rootScope.$on('FILTER_CHANGED', onChange);
+
+
+    // Doing some stuff for the results views here because this controller is active
+    // for the whole application
+    var mc = $('#mapContainer');
+
+    // if the user is on mobile and has the map only partly showing, when they start to scroll
+    // we want to hide the map and show the whole results container since it's too small to try to user
+    // when the map is showing
+    $("#serviceList").scroll(_.throttle(function() {
+        if (!mc.hasClass('map-hide')) {
+            toggleMap();
+        }
+    }, 10));
+
+    // HACK: using a global here so we can use an onclick="toggleMap()"
+    toggleMap = function() {
+        mc.toggleClass('map-hide');
+        map.invalidateSize();
+    }
 }]);

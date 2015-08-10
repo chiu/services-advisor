@@ -61,7 +61,6 @@ controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScop
     }
 
     ServicesList.get(function (data) {
-        Search.clearAll();
         // TODO: right now we don't even use the 'data' result, we just use the current search results.
         // this is because if there are filters applied we want to only show data within those filters
         renderView(Search.currResults());
@@ -69,6 +68,14 @@ controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScop
 
     $scope.toggleCategory = function(categoryId) {
         $( '#' + categoryId + ' .activities').toggleClass('hidden');
+        var classes = $( '#' + categoryId + ' .glyphicon').attr('class').split(/\s+/);
+        if($.inArray('glyphicon-chevron-down', classes) > -1) {
+            $( '#' + categoryId + ' .glyphicon').addClass('glyphicon-chevron-right');
+            $( '#' + categoryId + ' .glyphicon').removeClass('glyphicon-chevron-down');
+        } else if($.inArray('glyphicon-chevron-right', classes) > -1) {
+            $( '#' + categoryId + ' .glyphicon').addClass('glyphicon-chevron-down');
+            $( '#' + categoryId + ' .glyphicon').removeClass('glyphicon-chevron-right');
+        }
     }
 
     $scope.toCssClass = function (str) {
@@ -80,6 +87,21 @@ controllers.controller('SearchCtrl', ['$scope', '$http', '$location', '$rootScop
         });
     }
 
+    $scope.showCategoryResults = function(category_name) {
+        var parameters = $location.search();
+        parameters.category = category_name;
+        $location.path('results').search(parameters);
+        Search.filterByUrlParameters();
+    }
+
+    $scope.showRegionResults = function(regionName) {
+        var parameters = $location.search();
+        parameters.region = regionName;
+        $location.path('results').search(parameters);
+        Search.filterByUrlParameters();
+    }
+
+    
     /* Adding a function to check which glyph icon to use
         
         This funtion checks the cateogry name, and returns 

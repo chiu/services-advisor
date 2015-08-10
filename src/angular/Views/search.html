@@ -1,5 +1,12 @@
 <div class="row">
-  <h1>{{ 'SERVICES_ADVISOR' | translate }}</h1>
+  <h1 class="services-advisor-title">{{ 'SERVICES_ADVISOR' | translate }}</h1>
+  <!-- TODO: huge hack here using global variable to be able to call map.invalidateSize() on map so it resizes -->
+  <button id="toggleMapButton" type="button" class="btn btn-default visible-xs toggle-map-search"
+          onclick="toggleMap()">
+    {{ 'TOGGLE_MAP' | translate }}
+  </button>
+</div>
+<div class="row">
   <p class="instructions">{{'SEARCH_TEXT' | translate}}</p>
 </div>
 <div class="row">
@@ -8,7 +15,7 @@
     <div ng-init="categoryId = 'category-' + $index" id="{{categoryId}}" ng-repeat="category in categories">
 
       <a class="list-group-item category" ng-click="toggleCategory(categoryId)">
-          <span class="glyphicon glyphicon-chevron-down"></span>
+          <span class="glyphicon glyphicon-chevron-right"></span>
           {{category.name}} 
           <span class="badge">{{category.count}}</span>
       </a>
@@ -26,7 +33,7 @@
   <!-- populating the catgories from the SearchCtrl  -->
   <div class="list-group">
     <div ng-repeat="region in regions">
-      <a href="#/results?region={{region}}" class="list-group-item">
+      <a ng-click="showRegionResults(region);" class="list-group-item">
         <span class="-map-icon">&#xf041;</span> {{region | translate}}
       </a>
     </div>

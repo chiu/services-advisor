@@ -6,7 +6,7 @@ var controllers = angular.module('controllers');
 
 */
 
-controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'ServicesList', '_', function ($scope, $rootScope, Search, ServicesList, _) {
+controllers.controller('FilterCtrl', ['$scope', '$rootScope', '$location', 'Search', 'ServicesList', '_', '$timeout', function ($scope, $rootScope, $location, Search, ServicesList, _, $timeout) {
 
  // defines a function to callback function for filtering data 
   var collectOrganizations = function(data){
@@ -73,38 +73,58 @@ controllers.controller('FilterCtrl', ['$scope', '$rootScope', 'Search', 'Service
   ServicesList.get(collectOrganizations);
 
   // selected organizations
-  $scope.toggleReferral = function() {
-    Search.selectReferrals($scope.referral.selection);
+  $scope.toggleReferral = function(value) {
+    var parameters = $location.search();
+    if ($scope.referral.selection == 'all') {
+      //Don't display the 'all' filter
+      if (_.has(parameters, 'referrals')){
+        delete parameters.referrals
+      }
+    } else {
+      parameters.referrals = $scope.referral.selection;
+    }
+    $location.search(parameters);
+    Search.filterByUrlParameters();
+    // Search.selectReferrals($scope.referral.selection);
   };
 
-    $scope.referral = {
-        selection: 'all'
-    };
+  $scope.referral = {
+      selection: 'all'
+  };
 
   // toggle selection for a given organization by name
   $scope.toggleSelection = function toggleSelection(organization) {
     
-    // stores the index of the organization currently being click
-    var idx = $rootScope.filterSelection.indexOf(organization);
+    var parameters = $location.search();
 
-    // is currently selected - splice that organization from selected array
-    if (idx > -1) {
-      $rootScope.filterSelection.splice(idx, 1);
+    if (_.has(parameters, 'organization')){
+      var organizations = parameters.organization;
+      var idx = organizations.indexOf(organization);
+      // is currently selected - splice that organization from selected array
+      if (idx > -1) {
+        organizations.splice(idx, 1);
+      }
+      // is newly selected - push organization into the selection array
+      else {
+        organizations.push(organization);
+      }
+      parameters.organization = organizations;
+    } else {
+      parameters.organization = [organization];
     }
-    // is newly selected - push organization into the selection array
-    else {
-      $rootScope.filterSelection.push(organization);
-    }
+    // still binding the pills to filterSeletion.
+    $rootScope.filterSelection = parameters.organization;
 
-    if ($rootScope.filterSelection.length == 0){
-      Search.clearPartners();
-      Search.selectReferrals($scope.referral.selection);
-    } else{
-      //reapply the referrals filters
-      Search.clearPartners();
-      Search.selectReferrals($scope.referral.selection);
-      Search.selectPartners($rootScope.filterSelection);
-    }
+    $location.search(parameters);
+
+    Search.filterByUrlParameters();
+
+    $timeout(function () {
+        // hack to reset body padding height so if the size of the filter bar grows we can
+        // still see the rest of the UI. Wrapped in timeout because need angular to refresh the UI
+        // so we can read the height and couldn't figure out how to hook into that event
+        $("body").css("padding-top", $("#searchNav").height() + "px");
+    }, 2);
   };
 
   $scope.toggleFilters = toggleFilters;

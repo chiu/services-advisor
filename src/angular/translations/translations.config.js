@@ -10,7 +10,7 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     'CLEAR': 'Clear',
     'REFERRAL_REQUIRED': 'Referral Required',
     'CANCEL': 'Cancel',
-    'APPLY': 'Apply',
+    'OK': 'OK',
     'ORGANIZATIONS': 'Organizations',
     'DISTANCE': 'Distance',
     'BACK': 'Back',
@@ -50,19 +50,23 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "Ma'an Governorate": "Ma'an Governorate",
     "Madaba Governorate": "Madaba Governorate",
     'ALL': "All",
-    'REFERRAL_NOT_REQUIRED': "Referral Not Required"
+    'REFERRAL_NOT_REQUIRED': "Referral Not Required",
+    'UNKNOWN': 'Unknown',
+    'OPEN_AT': 'Open at',
+    'Activity Details': 'Activity Details',
+    'Referral Method': 'Referral Method'
   });
 
   $translateProvider.translations('AR', {
     'CATEGORY': 'فئة',
     'SEARCH_TEXT': 'العثور على الخدمة، اختر من فئة أو منطقة أدناه. استخدم زر مرشح فوق لمزيد من تضييق نطاق البحث.',
     'REGION': 'منطقة',
-    'FILTERS': 'بحثك صفي',
+    'FILTERS': 'تصفية بحثك',
     'TOGGLE_MAP': 'الخريطة إخفاء / ظهار إ',
     'CLEAR': 'امسح',
     'REFERRAL_REQUIRED': 'إحالة مطلوب',
     'CANCEL': 'إلغاء',
-    'APPLY': 'طبق',
+    'OK': 'حسنا',
     'ORGANIZATIONS': 'المنظمات',
     'DISTANCE': 'مسافه',
     'BACK': 'ارجع',
@@ -102,6 +106,10 @@ servicesAdvisorApp.config(['$translateProvider', function ($translateProvider) {
     "Ma'an Governorate": "معان محافظة",
     "Madaba Governorate": "مادبا محافظةا",
     'ALL': "كل",
-    'REFERRAL_NOT_REQUIRED': "إحالة غير مطلوب"
+    'REFERRAL_NOT_REQUIRED': "إحالة غير مطلوب",
+    'UNKNOWN': 'غير معروف',
+    'OPEN_AT': 'مفتوحة في',
+    'Activity Details': 'تفاصيل',
+    'Referral Method': 'أسلوب الإحالة'
   });
 }]);
